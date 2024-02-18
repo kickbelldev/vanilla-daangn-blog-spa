@@ -22,7 +22,7 @@ export const jsx = {
     return {
       tag: component,
       props,
-      children: children,
+      children: children.flat(Infinity),
     }
   },
 }
