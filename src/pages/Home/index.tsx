@@ -23,9 +23,17 @@ const Home = () => {
   return (
     <div>
       <span>hello</span>
+      <div>
+        <div>asd</div>
+      </div>
       <span>{val}</span>
       <button onclick={handleClick}>button</button>
       <input value={string} onchange={handleInput} />
+      <ol>
+        {[1, 2, 3, 4, 5].map((v) => (
+          <li>{v}</li>
+        ))}
+      </ol>
     </div>
   )
 }
