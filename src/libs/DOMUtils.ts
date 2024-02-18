@@ -1,3 +1,4 @@
+import shallowEqual from '@/utils/shallowEquals'
 import createDOM, { VirtualDOM, checkIsTextNode } from './createDOM'
 
 function checkIsSameVDOM(current: VirtualDOM, future: VirtualDOM) {
@@ -17,6 +18,10 @@ function checkIsSameVDOM(current: VirtualDOM, future: VirtualDOM) {
     return false
   }
 
+  if (!shallowEqual(current.props, future.props)) {
+    return false
+  }
+
   return true
 }
 
@@ -32,7 +37,7 @@ export function DOMUpdate(
     }
   } else if (!oldNode) {
     $parent.appendChild(createDOM(newNode))
-  } else if (oldNode && newNode && checkIsSameVDOM(oldNode, newNode)) {
+  } else if (oldNode && newNode && !checkIsSameVDOM(oldNode, newNode)) {
     $parent.replaceChild(createDOM(newNode), $parent.childNodes[idx])
   } else {
     if (!checkIsTextNode(newNode) && !checkIsTextNode(oldNode)) {
