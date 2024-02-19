@@ -33,7 +33,7 @@ export function DOMUpdate(
   if (newNode == null) {
     if (oldNode != null) {
       $parent.removeChild($parent.childNodes[idx])
-      return idx
+      return true
     }
   } else if (oldNode == null) {
     $parent.appendChild(createDOM(newNode))
@@ -48,19 +48,18 @@ export function DOMUpdate(
       newNode.children?.length ?? 0,
       oldNode.children?.length ?? 0,
     )
-    let nextNodeIndex = 0
+    let nodeDeleteCnt = 0
     for (let i = 0; i < length; i++) {
       const result = DOMUpdate(
         $parent?.childNodes[idx],
         oldNode.children?.[i],
         newNode.children?.[i],
-        nextNodeIndex,
+        i - nodeDeleteCnt,
       )
-      if (typeof result === 'number') {
-        nextNodeIndex = result
-      } else {
-        nextNodeIndex = i + 1
+      if (result) {
+        nodeDeleteCnt++
       }
     }
   }
+  return false
 }
