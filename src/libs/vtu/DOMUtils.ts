@@ -48,17 +48,18 @@ export function DOMUpdate(
       newNode.children?.length ?? 0,
       oldNode.children?.length ?? 0,
     )
+    let nextNodeIndex = 0
     for (let i = 0; i < length; i++) {
       const result = DOMUpdate(
         $parent?.childNodes[idx],
         oldNode.children?.[i],
         newNode.children?.[i],
-        i,
+        nextNodeIndex,
       )
       if (typeof result === 'number') {
-        oldNode.children?.splice(result, 1)
-        newNode.children?.splice(result, 1)
-        i = result - 1
+        nextNodeIndex = result
+      } else {
+        nextNodeIndex = i + 1
       }
     }
   }
