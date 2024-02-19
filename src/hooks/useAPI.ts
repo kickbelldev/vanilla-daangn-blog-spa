@@ -15,12 +15,12 @@ export const useAPI = <T>(
     try {
       setIsLoading(true)
       instance<T>({ method, url, ...options }).then((response) => {
+        setIsLoading(false)
         if (response.status >= 400) {
           return
         }
         setData(response.data)
         setIsSuccess(true)
-        setIsLoading(false)
       })
     } catch {
       setIsLoading(false)
