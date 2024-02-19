@@ -2,21 +2,23 @@
 
 export interface VirtualDOMNode {
   tag: string
-  props?: any
+  props?: Record<string, any>
   children?: VirtualDOM[]
 }
 
-type TextNode = string | number
+type TextNode = string | number | Array<any>
 export type VirtualDOM = VirtualDOMNode | TextNode
 
-export const checkIsTextNode = (
-  element: VirtualDOMNode | TextNode,
-): element is TextNode => {
-  if (typeof element === 'object' && element.tag) {
-    return false
+export const checkIsTextNode = (element: VirtualDOM): element is TextNode => {
+  if (Array.isArray(element)) {
+    return true
   }
 
-  return true
+  if (typeof element === 'string' || typeof element === 'number') {
+    return true
+  }
+
+  return false
 }
 
 const createDOM = (node: VirtualDOM): HTMLElement | Text => {
