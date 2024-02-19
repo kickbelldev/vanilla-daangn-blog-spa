@@ -1,4 +1,5 @@
 import ArticleCard from '@/components/ArticleCard'
+import ArticleList from '@/components/ArticleList'
 import CategoryButton from '@/components/CartegoryButton'
 import TopArticleCard from '@/components/TopArticleCard'
 import { useAPI } from '@/hooks/useAPI'
@@ -33,11 +34,7 @@ const Home = ({ pageParams }: Props) => {
           <CategoryButton category={cat as [category, string]} />
         ))}
       </div>
-      <div class="article__list">
-        {filteredData.map((article) => {
-          return <ArticleCard article={article} />
-        })}
-      </div>
+      <ArticleList articleList={filteredData} />
     </div>
   )
 }
