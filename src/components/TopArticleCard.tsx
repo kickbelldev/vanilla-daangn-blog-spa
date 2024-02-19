@@ -6,14 +6,14 @@ interface Props {
 
 const TopArticleCard = ({ article }: Props) => {
   return (
-    <div class="top__article__card">
-      <a href={`/article/${article.id}`} class="wrapper">
-        <div class="thumbnail">
+    <div className="top__article__card">
+      <a href={`/article/${article.id}`} className="wrapper">
+        <div className="thumbnail">
           <img src={article.thumbnail} />
         </div>
-        <div class="text">
-          <h1 class="title">{article.title}</h1>
-          <p class="description">{article.description}</p>
+        <div className="text">
+          <h1 className="title">{article.title}</h1>
+          <p className="description">{article.description}</p>
         </div>
       </a>
     </div>

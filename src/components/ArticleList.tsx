@@ -7,7 +7,7 @@ interface Props {
 
 const ArticleList = ({ articleList }: Props) => {
   return (
-    <div class="article__list">
+    <div className="article__list">
       {articleList.map((article) => {
         return <ArticleCard article={article} />
       })}

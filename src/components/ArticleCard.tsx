@@ -6,15 +6,19 @@ interface Props {
 
 const ArticleCard = ({ article }: Props) => {
   return (
-    <div class="article__card">
-      <a href={`/article/${article.id}`} class="wrapper">
-        <div class="thumbnail">
+    <div className="article__card">
+      <a data-link href={`/article/${article.id}`} className="wrapper">
+        <div className="thumbnail">
           <img src={article.thumbnail} />
         </div>
-        <h3 class="title">{article.title}</h3>
-        <p class="description">{article.description}</p>
+        <h3 className="title">{article.title}</h3>
+        <p className="description">{article.description}</p>
       </a>
-      <a href={`/category/${article.category}`} class="category-link">
+      <a
+        data-link
+        href={`/category/${article.category}`}
+        className="category-link"
+      >
         {categoryMap[article.category]}
       </a>
     </div>

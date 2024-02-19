@@ -7,8 +7,9 @@ interface Props {
 const CategoryButton = ({ category: [key, label] }: Props) => {
   return (
     <a
+      data-link
       href={`/category/${key}`}
-      class={`category-link${
+      className={`category-link${
         location.pathname === `/category/${key}` ? ' active' : ''
       }`}
     >

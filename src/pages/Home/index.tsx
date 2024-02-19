@@ -1,4 +1,3 @@
-import ArticleCard from '@/components/ArticleCard'
 import ArticleList from '@/components/ArticleList'
 import CategoryButton from '@/components/CartegoryButton'
 import TopArticleCard from '@/components/TopArticleCard'
@@ -21,12 +20,15 @@ const Home = ({ pageParams }: Props) => {
   )
 
   return (
-    <div class="layout">
+    <div className="layout">
       <TopArticleCard article={articleData[0]} />
-      <div class="article__category">
+      <div className="article__category">
         <a
+          data-link
           href="/"
-          class={`category-link${location.pathname === '/' ? ' active' : ''}`}
+          className={`category-link${
+            location.pathname === '/' ? ' active' : ''
+          }`}
         >
           전체
         </a>
