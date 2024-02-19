@@ -1,5 +1,11 @@
 export type category = 'culture' | 'service' | 'career'
 
+export const categoryMap = {
+  culture: '문화',
+  service: '서비스',
+  career: '커리어',
+}
+
 export interface Article {
   id: number
   thumbnail: string

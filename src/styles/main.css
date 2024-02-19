@@ -1,0 +1,48 @@
+.article__list {
+  display: grid;
+  grid-template-columns: repeat(2, 1fr);
+  row-gap: 3rem;
+}
+
+.article__card {
+  width: 30rem;
+  height: 28.75rem;
+  transition: all 0.3s ease-in-out;
+}
+
+.article__card a.wrapper {
+  display: block;
+}
+
+.article__card .thumbnail {
+  border-radius: 2.5rem;
+  overflow: hidden;
+}
+
+.article__card .thumbnail img {
+  width: 100%;
+  height: 100%;
+}
+
+.article__card h3.title {
+  margin-top: 1.25rem;
+  font-size: 1.625rem;
+  font-weight: bold;
+  color: #444;
+}
+
+.article__card p.description {
+  margin-top: 0.625rem;
+  color: #888;
+  font-size: 1rem;
+  white-space: pre-line;
+}
+
+.article__card a.category-link {
+  display: inline-block;
+  margin-top: 1.125rem;
+  border-radius: 2.5rem;
+  padding: 0.5rem;
+  background-color: #eee;
+  color: #888;
+}
