@@ -1,7 +1,7 @@
 import { useAPI } from '@/hooks/useAPI'
 
 const Home = () => {
-  const { data, isLoading, isSuccess } = useAPI<{
+  const { data, isLoading, isError } = useAPI<{
     id: string
     firstName: string
     age: number
@@ -11,7 +11,7 @@ const Home = () => {
     return <div>loading...</div>
   }
 
-  if (!isSuccess) {
+  if (isError) {
     return <div>error</div>
   }
 
@@ -23,8 +23,9 @@ const Home = () => {
 
   return (
     <div>
-      {JSON.stringify(data)}
+      {data}
       <button onclick={handleClick}>눌러봐</button>
+      asd
     </div>
   )
 }
