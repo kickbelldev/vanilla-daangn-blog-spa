@@ -1,7 +1,7 @@
 /* eslint-disable @typescript-eslint/no-explicit-any */
 
 export interface VirtualDOMNode {
-  tag: string
+  tag: keyof HTMLElementTagNameMap
   props?: Record<string, any>
   children?: VirtualDOM[]
 }
@@ -18,11 +18,18 @@ export const checkIsTextNode = (element: VirtualDOM): element is TextNode => {
     return true
   }
 
+  if (!element.tag) {
+    return true
+  }
+
   return false
 }
 
 const createDOM = (node: VirtualDOM): HTMLElement | Text => {
   if (checkIsTextNode(node)) {
+    if (typeof node === 'object') {
+      return document.createTextNode(JSON.stringify(node))
+    }
     return document.createTextNode(node.toString())
   }
 
