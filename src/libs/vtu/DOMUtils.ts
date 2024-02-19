@@ -31,13 +31,17 @@ export function DOMUpdate(
   newNode?: VirtualDOM,
   idx = 0,
 ) {
-  if (!newNode) {
-    if (oldNode) {
+  if (newNode == null) {
+    if (oldNode != null) {
       $parent.removeChild($parent.childNodes[idx])
     }
-  } else if (!oldNode) {
+  } else if (oldNode == null) {
     $parent.appendChild(createDOM(newNode))
-  } else if (oldNode && newNode && !checkIsSameVDOM(oldNode, newNode)) {
+  } else if (
+    oldNode != null &&
+    newNode != null &&
+    !checkIsSameVDOM(oldNode, newNode)
+  ) {
     $parent.replaceChild(createDOM(newNode), $parent.childNodes[idx])
   } else {
     if (!checkIsTextNode(newNode) && !checkIsTextNode(oldNode)) {
