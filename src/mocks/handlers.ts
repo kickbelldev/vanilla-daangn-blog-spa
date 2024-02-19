@@ -9,4 +9,7 @@ export const handlers = [
       age: 38,
     })
   }),
+  http.all('*', () => {
+    return HttpResponse.error()
+  }),
 ]
