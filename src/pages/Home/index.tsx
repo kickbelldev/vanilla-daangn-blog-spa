@@ -4,12 +4,20 @@ import TopArticleCard from '@/components/TopArticleCard'
 import { useAPI } from '@/hooks/useAPI'
 import { Article, category, categoryMap } from '@/mocks/data/articles'
 
-const Home = () => {
+interface Props {
+  pageParams?: string[]
+}
+
+const Home = ({ pageParams }: Props) => {
   const { data: articleData, isLoading } = useAPI<Article[]>('get', '/article')
 
   if (isLoading) {
     return <div></div>
   }
+
+  const filteredData = articleData.filter((article) =>
+    pageParams?.length ? article.category === pageParams[0] : true,
+  )
 
   return (
     <div class="layout">
@@ -26,7 +34,7 @@ const Home = () => {
         ))}
       </div>
       <div class="article__list">
-        {articleData.map((article) => {
+        {filteredData.map((article) => {
           return <ArticleCard article={article} />
         })}
       </div>
