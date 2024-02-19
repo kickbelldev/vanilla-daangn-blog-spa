@@ -63,20 +63,20 @@ function valueToUI() {
     if (typeof values.states[index] === 'undefined') {
       values.states[index] = initialState
     }
-    const state = values.states[index]
+    const state = values.states[index] as T
 
-    function setState(newValue: T) {
-      if (shallowEqual(state, newValue)) {
+    function setState(newState: T) {
+      if (shallowEqual(state, newState)) {
         return
       }
 
-      values.states[index] = newValue
+      values.states[index] = newState
       _render()
     }
 
     values.stateIndex += 1
 
-    return [state, setState]
+    return [state, setState] as [T, (newState: T) => void]
   }
 
   function useEffect(callback: () => void, dependencies: any[]) {
