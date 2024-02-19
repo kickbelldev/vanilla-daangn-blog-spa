@@ -14,19 +14,15 @@ export const useAPI = <T>(
   useEffect(() => {
     try {
       setIsLoading(true)
-      instance<T>({ method, url, ...options })
-        .then((response) => {
-          if (response.status >= 400) {
-            setIsError(true)
-            setIsLoading(false)
-            return
-          }
-          setData(response.data)
+      instance<T>({ method, url, ...options }).then((response) => {
+        if (response.status >= 400) {
+          setIsError(true)
           setIsLoading(false)
-        })
-        .catch(() => {
-          throw Error()
-        })
+          return
+        }
+        setData(response.data)
+        setIsLoading(false)
+      })
     } catch {
       setIsError(true)
       setIsLoading(false)
