@@ -1,39 +1,21 @@
-import { useEffect, useState } from '@/libs/valueToUI'
+import { useEffect } from '@/libs/valueToUI'
 
 const Home = () => {
-  const [val, setVal] = useState(1)
-  const [string, setString] = useState('asd')
-
   useEffect(() => {
-    console.log(`val: ${val}, string: ${string}`)
-  }, [val])
+    fetch('/api/user/1')
+      .then((res) => res.json())
+      .then(console.log)
+  }, [])
 
-  useEffect(() => {
-    console.log(string)
-  }, [string])
+  const handleClick = async () => {
+    const res = await fetch('/api/user/2')
 
-  const handleClick = () => {
-    setVal(val + 1)
-  }
-
-  const handleInput = (e: Event) => {
-    setString((e.target as HTMLInputElement).value)
+    console.log(await res.json())
   }
 
   return (
     <div>
-      <span>hello</span>
-      <div>
-        <div>asd</div>
-      </div>
-      <span>{val}</span>
-      <button onclick={handleClick}>button</button>
-      <input value={string} onchange={handleInput} />
-      <ol>
-        {[1, 2, 3, 4, 5].map((v) => (
-          <li>{v}</li>
-        ))}
-      </ol>
+      <button onclick={handleClick}>눌러봐</button>
     </div>
   )
 }
