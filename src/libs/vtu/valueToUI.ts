@@ -30,20 +30,17 @@ function valueToUI() {
   const renderInfo: RenderObject = {}
 
   function _render() {
-    try {
-      renderInfo.futureVDOM = renderInfo.root?.({
-        pageParams: renderInfo.pageParams,
-      })
-      DOMUpdate(
-        renderInfo.$parent as ChildNode,
-        renderInfo.currentVDOM,
-        renderInfo.futureVDOM,
-      )
-      values.stateIndex = 0
-      values.depsIndex = 0
-    } finally {
-      renderInfo.currentVDOM = renderInfo.futureVDOM
-    }
+    renderInfo.futureVDOM = renderInfo.root?.({
+      pageParams: renderInfo.pageParams,
+    })
+    DOMUpdate(
+      renderInfo.$parent as ChildNode,
+      renderInfo.currentVDOM,
+      renderInfo.futureVDOM,
+    )
+    values.stateIndex = 0
+    values.depsIndex = 0
+    renderInfo.currentVDOM = renderInfo.futureVDOM
   }
 
   function render(

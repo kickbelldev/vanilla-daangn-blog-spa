@@ -24,7 +24,6 @@ function checkIsSameVDOM(current: VirtualDOM, future: VirtualDOM) {
 
   return true
 }
-
 export function DOMUpdate(
   $parent: ChildNode,
   oldNode?: VirtualDOM,
@@ -33,6 +32,9 @@ export function DOMUpdate(
 ) {
   if (newNode == null) {
     if (oldNode != null) {
+      while (!$parent.childNodes[idx]) {
+        idx--
+      }
       $parent.removeChild($parent.childNodes[idx])
     }
   } else if (oldNode == null) {
@@ -43,21 +45,18 @@ export function DOMUpdate(
     !checkIsSameVDOM(oldNode, newNode)
   ) {
     $parent.replaceChild(createDOM(newNode), $parent.childNodes[idx])
-  } else {
-    if (!checkIsTextNode(newNode) && !checkIsTextNode(oldNode)) {
-      const length = Math.max(
-        newNode.children?.length ?? 0,
-        oldNode.children?.length ?? 0,
+  } else if (!checkIsTextNode(newNode) && !checkIsTextNode(oldNode)) {
+    const length = Math.max(
+      newNode.children?.length ?? 0,
+      oldNode.children?.length ?? 0,
+    )
+    for (let i = 0; i < length; i++) {
+      DOMUpdate(
+        $parent?.childNodes[idx],
+        oldNode.children?.[i],
+        newNode.children?.[i],
+        i,
       )
-
-      for (let i = 0; i < length; i++) {
-        DOMUpdate(
-          $parent.childNodes[idx],
-          oldNode.children?.[i],
-          newNode.children?.[i],
-          i,
-        )
-      }
     }
   }
 }
