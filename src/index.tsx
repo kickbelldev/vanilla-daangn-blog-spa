@@ -1,3 +1,4 @@
+import { worker } from './mocks/browser'
 import router from './router'
 import navigateTo from './utils/navigateTo'
 
@@ -14,3 +15,7 @@ document.addEventListener('DOMContentLoaded', () => {
 
   router()
 })
+
+if (process.env.NODE_ENV === 'development') {
+  worker.start({ onUnhandledRequest: 'bypass' })
+}
