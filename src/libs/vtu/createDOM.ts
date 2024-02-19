@@ -37,7 +37,11 @@ const createDOM = (node: VirtualDOM): HTMLElement | Text => {
 
   if (node.props) {
     for (const key in node.props) {
-      ;(element as any)[key] = node.props[key]
+      if (key === 'class') {
+        element.className = node.props[key]
+      } else {
+        ;(element as any)[key] = node.props[key]
+      }
     }
   }
 
