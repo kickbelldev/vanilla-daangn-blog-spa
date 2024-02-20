@@ -51,6 +51,8 @@ function valueToUI() {
     renderInfo.$parent = rootElement
     renderInfo.root = component
     renderInfo.pageParams = pageParams
+    values.states = []
+    values.dependencies = []
     _render()
   }
 
@@ -90,8 +92,8 @@ function valueToUI() {
     }
 
     if (hasChanged) {
-      callback()
       values.dependencies[index] = dependencies
+      callback()
     }
 
     values.depsIndex += 1
