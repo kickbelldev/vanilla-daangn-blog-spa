@@ -1,0 +1,134 @@
+/* layout */
+
+div.layout {
+  max-width: 75rem;
+  margin: 0 auto;
+  margin-top: 2.5rem;
+  display: flex;
+  flex-direction: column;
+  padding: 1.5rem;
+}
+
+/* article__category */
+.article__category {
+  align-self: flex-start;
+  display: flex;
+  gap: 0.625rem;
+  margin: 0 3rem;
+}
+
+/* article__list */
+.article__list {
+  display: grid;
+  grid-template-columns: repeat(2, 1fr);
+  justify-content: center;
+  justify-items: center;
+  row-gap: 3rem;
+  width: 100%;
+  margin-top: 2.75rem;
+}
+
+/* article__card */
+.article__card {
+  width: 30rem;
+  height: 28.75rem;
+  transition: all 0.3s ease-in-out;
+}
+
+.article__card a.wrapper {
+  display: block;
+}
+
+.article__card .thumbnail {
+  border-radius: 1.25rem;
+  overflow: hidden;
+}
+
+.article__card .thumbnail img {
+  width: 100%;
+  height: 100%;
+}
+
+.article__card h3.title {
+  margin-top: 1.25rem;
+  font-size: 1.625rem;
+  font-weight: bold;
+  color: #444;
+}
+
+.article__card p.description {
+  margin-top: 1rem;
+  color: #888;
+  font-size: 1rem;
+  white-space: pre-line;
+}
+
+/* top__article__card */
+.top__article__card {
+  transition: all 0.3s ease-in-out;
+}
+
+.top__article__card a.wrapper {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  margin-bottom: 6.25rem;
+  text-decoration: none;
+}
+
+.top__article__card .thumbnail {
+  border-radius: 2.5rem;
+  overflow: hidden;
+  margin: 0 3rem;
+}
+
+.top__article__card .thumbnail img {
+  width: 100%;
+  height: 100%;
+}
+
+.top__article__card .text {
+  margin-top: 2.75rem;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+}
+
+.top__article__card .text h1.title {
+  font-size: 2rem;
+  font-weight: bold;
+  color: #444;
+}
+
+.top__article__card .text p.description {
+  margin-top: 1rem;
+  color: #888;
+  font-size: 1.125rem;
+  white-space: pre-line;
+}
+
+/* category-link */
+
+a.category-link {
+  display: inline-block;
+  margin-top: 1.125rem;
+  border-radius: 2.5rem;
+  padding: 0.25rem 0.625rem;
+  background-color: #eee;
+  color: #888;
+  font-size: 0.875rem;
+  line-height: 1.5rem;
+}
+
+a.category-link.active {
+  color: white;
+  background-color: #222;
+}
+
+.article__category > a.category-link {
+  font-size: 1.125rem;
+  line-height: 1rem;
+  padding: 0.875rem 1.25rem;
+}

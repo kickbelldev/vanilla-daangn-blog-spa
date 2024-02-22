@@ -9,7 +9,8 @@ interface Route {
 }
 
 const routes: Route[] = [
-  { path: '/', view: Home },
+  { path: '/', view: Home as Component },
+  { path: '/category/:category', view: Home as Component },
   { path: '/post/:id', view: Post as Component },
   // { path: '/edit/:id', view: Write as typeof Component, resolved: null },
   // { path: '/write', view: Write as typeof Component, resolved: null },

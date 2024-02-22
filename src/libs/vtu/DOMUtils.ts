@@ -24,36 +24,42 @@ function checkIsSameVDOM(current: VirtualDOM, future: VirtualDOM) {
 
   return true
 }
-
 export function DOMUpdate(
   $parent: ChildNode,
   oldNode?: VirtualDOM,
   newNode?: VirtualDOM,
   idx = 0,
 ) {
-  if (!newNode) {
-    if (oldNode) {
+  if (newNode == null) {
+    if (oldNode != null) {
       $parent.removeChild($parent.childNodes[idx])
+      return true
     }
-  } else if (!oldNode) {
+  } else if (oldNode == null) {
     $parent.appendChild(createDOM(newNode))
-  } else if (oldNode && newNode && !checkIsSameVDOM(oldNode, newNode)) {
+  } else if (
+    oldNode != null &&
+    newNode != null &&
+    !checkIsSameVDOM(oldNode, newNode)
+  ) {
     $parent.replaceChild(createDOM(newNode), $parent.childNodes[idx])
-  } else {
-    if (!checkIsTextNode(newNode) && !checkIsTextNode(oldNode)) {
-      const length = Math.max(
-        newNode.children?.length ?? 0,
-        oldNode.children?.length ?? 0,
+  } else if (!checkIsTextNode(newNode) && !checkIsTextNode(oldNode)) {
+    const length = Math.max(
+      newNode.children?.length ?? 0,
+      oldNode.children?.length ?? 0,
+    )
+    let nodeDeleteCnt = 0
+    for (let i = 0; i < length; i++) {
+      const result = DOMUpdate(
+        $parent?.childNodes[idx],
+        oldNode.children?.[i],
+        newNode.children?.[i],
+        i - nodeDeleteCnt,
       )
-
-      for (let i = 0; i < length; i++) {
-        DOMUpdate(
-          $parent.childNodes[idx],
-          oldNode.children?.[i],
-          newNode.children?.[i],
-          i,
-        )
+      if (result) {
+        nodeDeleteCnt++
       }
     }
   }
+  return false
 }

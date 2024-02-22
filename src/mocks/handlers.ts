@@ -1,4 +1,5 @@
 import { http, HttpResponse } from 'msw'
+import { ARTICLE_LIST } from './data/articles'
 
 export const handlers = [
   http.get('/api/user/:userId', ({ params }) => {
@@ -9,7 +10,10 @@ export const handlers = [
       age: 38,
     })
   }),
-  http.all('*', () => {
-    return HttpResponse.error()
+  http.get('/api/article', () => {
+    return HttpResponse.json(ARTICLE_LIST)
   }),
+  // http.all('*', () => {
+  //   return HttpResponse.error()
+  // }),
 ]

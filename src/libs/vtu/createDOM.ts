@@ -1,5 +1,7 @@
 /* eslint-disable @typescript-eslint/no-explicit-any */
 
+import _ from 'lodash'
+
 export interface VirtualDOMNode {
   tag: keyof HTMLElementTagNameMap
   props?: Record<string, any>
@@ -37,7 +39,12 @@ const createDOM = (node: VirtualDOM): HTMLElement | Text => {
 
   if (node.props) {
     for (const key in node.props) {
-      ;(element as any)[key] = node.props[key]
+      if (key.startsWith('data-')) {
+        const dataKey = _.camelCase(key.slice(5))
+        element.dataset[dataKey] = node.props[key]
+      } else {
+        ;(element as any)[key] = node.props[key]
+      }
     }
   }
 
