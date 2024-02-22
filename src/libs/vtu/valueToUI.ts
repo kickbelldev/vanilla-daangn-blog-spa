@@ -57,7 +57,7 @@ function valueToUI() {
     _render()
   }
 
-  function useState<T>(initialState: T) {
+  function useState<T>(initialState?: T) {
     const index = values.stateIndex
 
     if (typeof values.states[index] === 'undefined') {

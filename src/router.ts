@@ -2,7 +2,7 @@ import _ from 'lodash'
 
 import pathToRegex from '@/utils/pathToRegex'
 import routes from '@/routes'
-import { render } from './libs/valueToUI'
+import { render } from '@/libs/vtu/valueToUI'
 
 const router = () => {
   const { pathname } = location
