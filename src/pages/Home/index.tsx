@@ -9,9 +9,9 @@ interface Props {
 }
 
 const Home = ({ pageParams }: Props) => {
-  const { data: articleData, isLoading } = useAPI<Article[]>('get', '/article')
+  const { data: articleData } = useAPI<Article[]>('get', '/article')
 
-  if (isLoading) {
+  if (articleData == null) {
     return <div></div>
   }
 
