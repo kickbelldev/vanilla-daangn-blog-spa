@@ -1,13 +1,11 @@
 import ArticleList from '@/components/ArticleList'
 import { useAPI } from '@/hooks/useAPI'
+import { Component } from '@/libs/jsx/jsx-runtime'
+import { PageProps } from '@/libs/vtu/valueToUI'
 import { ARTICLE_LIST, ArticleDetail, categoryMap } from '@/mocks/data/articles'
 
-interface PageProps extends Record<string, unknown> {
-  pageParams: string[]
-}
-
-const Article = (props?: PageProps) => {
-  const { data } = useAPI<ArticleDetail>('get', `/article/${props?.pageParams}`)
+const Article: Component<PageProps> = ({ pageParams }) => {
+  const { data } = useAPI<ArticleDetail>('get', `/article/${pageParams}`)
 
   if (!data) {
     return <div></div>

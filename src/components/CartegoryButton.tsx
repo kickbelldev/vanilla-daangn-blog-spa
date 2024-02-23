@@ -1,10 +1,11 @@
+import { Component, DefaultProps } from '@/libs/jsx/jsx-runtime'
 import { category } from '@/mocks/data/articles'
 
-interface Props {
+interface Props extends DefaultProps {
   category: [category, string]
 }
 
-const CategoryButton = ({ category: [key, label] }: Props) => {
+const CategoryButton: Component<Props> = ({ category: [key, label] }) => {
   return (
     <a
       data-link
