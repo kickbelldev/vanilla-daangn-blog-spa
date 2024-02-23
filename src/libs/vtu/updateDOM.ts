@@ -1,30 +1,9 @@
-import shallowEqual from '@/utils/shallowEquals'
-import createDOM, { VirtualDOM, checkIsTextNode } from './createDOM'
+import { checkIsSameVDOM } from './utils/checkIsSameVDOM'
+import createDOM from './createDOM'
+import { VirtualDOM } from './types'
+import { checkIsTextNode } from './utils/checkIsTextNode'
 
-function checkIsSameVDOM(current: VirtualDOM, future: VirtualDOM) {
-  if (checkIsTextNode(current)) {
-    if (checkIsTextNode(future)) {
-      return current === future
-    }
-
-    return false
-  }
-
-  if (checkIsTextNode(future)) {
-    return false
-  }
-
-  if (current.tag !== future.tag) {
-    return false
-  }
-
-  if (!shallowEqual(current.props, future.props)) {
-    return false
-  }
-
-  return true
-}
-export function updateDOM(
+export default function updateDOM(
   $parent: ChildNode,
   oldNode?: VirtualDOM,
   newNode?: VirtualDOM,
@@ -35,15 +14,24 @@ export function updateDOM(
       $parent.removeChild($parent.childNodes[idx])
       return true
     }
-  } else if (oldNode == null) {
+    return false
+  }
+
+  if (oldNode == null) {
     $parent.appendChild(createDOM(newNode))
-  } else if (
+    return false
+  }
+
+  if (
     oldNode != null &&
     newNode != null &&
     !checkIsSameVDOM(oldNode, newNode)
   ) {
     $parent.replaceChild(createDOM(newNode), $parent.childNodes[idx])
-  } else if (!checkIsTextNode(newNode) && !checkIsTextNode(oldNode)) {
+    return false
+  }
+
+  if (!checkIsTextNode(newNode) && !checkIsTextNode(oldNode)) {
     const length = Math.max(
       newNode.children?.length ?? 0,
       oldNode.children?.length ?? 0,
@@ -61,5 +49,6 @@ export function updateDOM(
       }
     }
   }
+
   return false
 }

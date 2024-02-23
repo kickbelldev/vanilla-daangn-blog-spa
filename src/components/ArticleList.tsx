@@ -1,6 +1,7 @@
 import { Article } from '@/mocks/data/articles'
 import ArticleCard from './ArticleCard'
-import { Component, DefaultProps } from '@/libs/jsx/jsx-runtime'
+import { DefaultProps } from '@/libs/vtu/types'
+import { Component } from '@/libs/jsx/jsx-runtime'
 
 interface Props extends DefaultProps {
   articleList: Article[]

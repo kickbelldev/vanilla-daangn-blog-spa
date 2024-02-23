@@ -1,7 +1,7 @@
 import ArticleList from '@/components/ArticleList'
 import { useAPI } from '@/hooks/useAPI'
 import { Component } from '@/libs/jsx/jsx-runtime'
-import { PageProps } from '@/libs/vtu/valueToUI'
+import { PageProps } from '@/libs/vtu/types'
 import { ARTICLE_LIST, ArticleDetail, categoryMap } from '@/mocks/data/articles'
 
 const Article: Component<PageProps> = ({ pageParams }) => {

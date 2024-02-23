@@ -3,10 +3,10 @@ import CategoryButton from '@/components/CartegoryButton'
 import TopArticleCard from '@/components/TopArticleCard'
 import { useAPI } from '@/hooks/useAPI'
 import { Component } from '@/libs/jsx/jsx-runtime'
-import { PageProps } from '@/libs/vtu/valueToUI'
+import { PageProps } from '@/libs/vtu/types'
 import { Article, category, categoryMap } from '@/mocks/data/articles'
 
-const Home: Component = ({ pageParams }: PageProps) => {
+const Home: Component<PageProps> = ({ pageParams }) => {
   const { data: articleData } = useAPI<Article[]>('get', '/article')
 
   if (articleData == null) {
