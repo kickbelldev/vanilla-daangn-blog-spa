@@ -1,11 +1,12 @@
 import { Article } from '@/mocks/data/articles'
 import ArticleCard from './ArticleCard'
+import { Component, DefaultProps } from '@/libs/jsx/jsx-runtime'
 
-interface Props {
+interface Props extends DefaultProps {
   articleList: Article[]
 }
 
-const ArticleList = ({ articleList }: Props) => {
+const ArticleList: Component<Props> = ({ articleList }) => {
   return (
     <div className="article__list">
       {articleList.map((article) => {

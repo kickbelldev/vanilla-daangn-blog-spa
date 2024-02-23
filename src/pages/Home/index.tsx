@@ -2,13 +2,11 @@ import ArticleList from '@/components/ArticleList'
 import CategoryButton from '@/components/CartegoryButton'
 import TopArticleCard from '@/components/TopArticleCard'
 import { useAPI } from '@/hooks/useAPI'
+import { Component } from '@/libs/jsx/jsx-runtime'
+import { PageProps } from '@/libs/vtu/valueToUI'
 import { Article, category, categoryMap } from '@/mocks/data/articles'
 
-interface Props {
-  pageParams?: string[]
-}
-
-const Home = ({ pageParams }: Props) => {
+const Home: Component = ({ pageParams }: PageProps) => {
   const { data: articleData } = useAPI<Article[]>('get', '/article')
 
   if (articleData == null) {

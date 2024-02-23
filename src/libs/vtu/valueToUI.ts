@@ -1,8 +1,8 @@
 /* eslint-disable @typescript-eslint/no-explicit-any */
 import shallowEqual from '@/utils/shallowEquals'
 import { VirtualDOM } from './createDOM'
-import { Component } from '@/libs/jsx/jsx-runtime'
-import { DOMUpdate } from './DOMUtils'
+import { Component, DefaultProps } from '@/libs/jsx/jsx-runtime'
+import { updateDOM } from './DOMUtils'
 
 interface ValueObject {
   states: any[]
@@ -11,8 +11,12 @@ interface ValueObject {
   depsIndex: number
 }
 
+export interface PageProps extends DefaultProps {
+  pageParams?: string[]
+}
+
 interface RenderObject {
-  root?: Component
+  root?: Component<PageProps>
   $parent?: HTMLElement
   pageParams?: string[]
   currentVDOM?: VirtualDOM
@@ -33,7 +37,7 @@ function valueToUI() {
     renderInfo.futureVDOM = renderInfo.root?.({
       pageParams: renderInfo.pageParams,
     })
-    DOMUpdate(
+    updateDOM(
       renderInfo.$parent as ChildNode,
       renderInfo.currentVDOM,
       renderInfo.futureVDOM,
@@ -45,9 +49,14 @@ function valueToUI() {
 
   function render(
     rootElement: HTMLElement,
-    component: Component,
+    component: Component<PageProps>,
     { pageParams }: { pageParams: string[] },
   ) {
+    if (renderInfo.$parent === rootElement && renderInfo.root === component) {
+      renderInfo.pageParams = pageParams
+      _render()
+      return
+    }
     renderInfo.$parent = rootElement
     renderInfo.root = component
     renderInfo.pageParams = pageParams

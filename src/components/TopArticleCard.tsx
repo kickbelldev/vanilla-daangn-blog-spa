@@ -1,10 +1,11 @@
+import { Component, DefaultProps } from '@/libs/jsx/jsx-runtime'
 import { Article } from '@/mocks/data/articles'
 
-interface Props {
+interface Props extends DefaultProps {
   article: Article
 }
 
-const TopArticleCard = ({ article }: Props) => {
+const TopArticleCard: Component<Props> = ({ article }) => {
   return (
     <div className="top__article__card">
       <a href={`/article/${article.id}`} className="wrapper">

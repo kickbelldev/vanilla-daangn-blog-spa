@@ -1,10 +1,11 @@
+import { Component, DefaultProps } from '@/libs/jsx/jsx-runtime'
 import { Article, categoryMap } from '@/mocks/data/articles'
 
-interface Props {
+interface Props extends DefaultProps {
   article: Article
 }
 
-const ArticleCard = ({ article }: Props) => {
+const ArticleCard: Component<Props> = ({ article }) => {
   return (
     <div className="article__card">
       <a data-link href={`/article/${article.id}`} className="wrapper">

@@ -12,6 +12,6 @@ export default defineConfig({
     jsxDev: false,
     jsxImportSource: '@/libs/jsx',
     jsxInject: `import { jsx } from '@/libs/jsx/jsx-runtime'`,
-    jsxFactory: 'jsx.component',
+    jsxFactory: 'jsx.toVDOM',
   },
 })
