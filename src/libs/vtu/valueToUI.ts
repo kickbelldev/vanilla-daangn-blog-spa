@@ -2,7 +2,7 @@
 import shallowEqual from '@/utils/shallowEquals'
 import { VirtualDOM } from './createDOM'
 import { Component, DefaultProps } from '@/libs/jsx/jsx-runtime'
-import { DOMUpdate } from './DOMUtils'
+import { updateDOM } from './DOMUtils'
 
 interface ValueObject {
   states: any[]
@@ -37,7 +37,7 @@ function valueToUI() {
     renderInfo.futureVDOM = renderInfo.root?.({
       pageParams: renderInfo.pageParams,
     })
-    DOMUpdate(
+    updateDOM(
       renderInfo.$parent as ChildNode,
       renderInfo.currentVDOM,
       renderInfo.futureVDOM,

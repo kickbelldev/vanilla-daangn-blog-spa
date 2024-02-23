@@ -24,7 +24,7 @@ function checkIsSameVDOM(current: VirtualDOM, future: VirtualDOM) {
 
   return true
 }
-export function DOMUpdate(
+export function updateDOM(
   $parent: ChildNode,
   oldNode?: VirtualDOM,
   newNode?: VirtualDOM,
@@ -50,7 +50,7 @@ export function DOMUpdate(
     )
     let nodeDeleteCnt = 0
     for (let i = 0; i < length; i++) {
-      const result = DOMUpdate(
+      const result = updateDOM(
         $parent?.childNodes[idx],
         oldNode.children?.[i],
         newNode.children?.[i],
