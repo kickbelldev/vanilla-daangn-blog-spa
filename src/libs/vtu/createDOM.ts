@@ -2,12 +2,17 @@ import _ from 'lodash'
 import { checkIsTextNode } from './utils/checkIsTextNode'
 import { VirtualDOM } from './types'
 
-const createDOM = (node: VirtualDOM): HTMLElement | Text => {
+const createDOM = (VDOM: VirtualDOM): HTMLElement | Text => {
+  const { node } = VDOM
+
   if (checkIsTextNode(node)) {
-    if (typeof node === 'object' && node != null) {
+    if (Array.isArray(node)) {
+      return document.createTextNode(node.toString())
+    }
+    if (typeof node === 'object' && node !== null) {
       return document.createTextNode(JSON.stringify(node))
     }
-    return document.createTextNode(node == null ? '' : node.toString())
+    return document.createTextNode(node ? node.toString() : '')
   }
 
   const element = document.createElement(node.tag)
@@ -17,14 +22,23 @@ const createDOM = (node: VirtualDOM): HTMLElement | Text => {
       if (key.startsWith('data-')) {
         const dataKey = _.camelCase(key.slice(5))
         element.dataset[dataKey] = node.props[key] as string
-      } else {
-        ;(element as any)[key] = node.props[key]
+        continue
       }
+
+      if (key.startsWith('on') || key === 'className' || key === 'checked') {
+        // eslint-disable-next-line @typescript-eslint/no-explicit-any, no-extra-semi
+        ;(element as any)[key] = node.props[key]
+        continue
+      }
+
+      element.setAttribute(key, node.props[key] as string)
     }
   }
 
   node.children?.forEach((child) => {
-    element.append(createDOM(child))
+    if (child) {
+      element.append(createDOM(child))
+    }
   })
 
   return element

@@ -33,14 +33,7 @@ export default route
 
 class Router {
   static push(url: string) {
-    history.pushState(
-      {
-        scrollTop:
-          document.body.scrollHeight || document.documentElement.scrollHeight,
-      },
-      '',
-      url,
-    )
+    history.pushState({}, '', url)
     route()
   }
   static replace(url: string) {
