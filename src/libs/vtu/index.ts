@@ -1,18 +1,16 @@
 /* eslint-disable @typescript-eslint/no-explicit-any */
-import shallowEqual from '@/utils/shallowEquals'
-import { VirtualDOM } from './createDOM'
-import { Component, DefaultProps } from '@/libs/jsx/jsx-runtime'
-import { updateDOM } from './DOMUtils'
+import { Component } from '@/libs/jsx/jsx-runtime'
+
+import { PageProps, VirtualDOM } from './types'
+import updateDOM from './updateDOM'
+import shallowEqual from './utils/shallowEquals'
 
 interface ValueObject {
   states: any[]
   stateIndex: number
   dependencies: any[][]
   depsIndex: number
-}
-
-export interface PageProps extends DefaultProps {
-  pageParams?: string[]
+  effectList: (() => void)[]
 }
 
 interface RenderObject {
@@ -29,6 +27,7 @@ function valueToUI() {
     stateIndex: 0,
     dependencies: [],
     depsIndex: 0,
+    effectList: [],
   }
 
   const renderInfo: RenderObject = {}
@@ -42,9 +41,11 @@ function valueToUI() {
       renderInfo.currentVDOM,
       renderInfo.futureVDOM,
     )
-    values.stateIndex = 0
-    values.depsIndex = 0
     renderInfo.currentVDOM = renderInfo.futureVDOM
+    values.stateIndex = 0
+    values.effectList.forEach((effect) => effect())
+    values.effectList = []
+    values.depsIndex = 0
   }
 
   function render(
@@ -89,22 +90,20 @@ function valueToUI() {
 
   function useEffect(callback: () => void, dependencies: any[]) {
     const index = values.depsIndex
+    values.effectList[index] = () => {
+      const oldDependencies = values.dependencies[index]
+      let hasChanged = true
+      if (oldDependencies) {
+        hasChanged = dependencies.some((val, idx) => {
+          return !shallowEqual(val, oldDependencies[idx])
+        })
+      }
 
-    const oldDependencies = values.dependencies[index]
-
-    let hasChanged = true
-
-    if (oldDependencies) {
-      hasChanged = dependencies.some((val, idx) => {
-        return !shallowEqual(val, oldDependencies[idx])
-      })
+      if (hasChanged) {
+        values.dependencies[index] = dependencies
+        callback()
+      }
     }
-
-    if (hasChanged) {
-      values.dependencies[index] = dependencies
-      callback()
-    }
-
     values.depsIndex += 1
   }
 

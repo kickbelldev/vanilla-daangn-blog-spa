@@ -1,4 +1,5 @@
-import { Component, DefaultProps } from '@/libs/jsx/jsx-runtime'
+import { Component } from '@/libs/jsx/jsx-runtime'
+import { DefaultProps } from '@/libs/vtu/types'
 import { Article } from '@/mocks/data/articles'
 
 interface Props extends DefaultProps {

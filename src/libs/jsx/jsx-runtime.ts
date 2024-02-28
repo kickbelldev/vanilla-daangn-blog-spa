@@ -1,4 +1,4 @@
-import { VirtualDOMNode } from '../vtu/createDOM'
+import { DefaultProps, VirtualDOMNode } from '../vtu/types'
 
 /* eslint-disable @typescript-eslint/no-explicit-any, @typescript-eslint/no-namespace */
 declare global {
@@ -12,10 +12,6 @@ declare global {
       children: VirtualDOMNode[]
     }
   }
-}
-
-export interface DefaultProps {
-  children?: VirtualDOMNode[]
 }
 
 export type Component<T extends DefaultProps = DefaultProps> = (

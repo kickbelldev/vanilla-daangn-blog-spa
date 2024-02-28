@@ -1,10 +1,10 @@
 import _ from 'lodash'
 
-import pathToRegex from '@/utils/pathToRegex'
+import pathToRegex from './pathToRegex'
 import routes from '@/routes'
-import { render } from '@/libs/vtu/valueToUI'
+import { render } from '@/libs/vtu'
 
-const router = () => {
+const route = () => {
   const { pathname } = location
 
   const resolvedRoutes = routes.map((route) => {
@@ -29,6 +29,27 @@ const router = () => {
   render($root, match.view, { pageParams })
 }
 
-export default router
+export default route
 
-// export default function () {}
+class Router {
+  static push(url: string) {
+    history.pushState(
+      {
+        scrollTop:
+          document.body.scrollHeight || document.documentElement.scrollHeight,
+      },
+      '',
+      url,
+    )
+    route()
+  }
+  static replace(url: string) {
+    history.replaceState({}, '', url)
+    route()
+  }
+  static pop() {
+    history.back()
+  }
+}
+
+export { Router }

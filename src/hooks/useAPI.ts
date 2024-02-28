@@ -1,5 +1,5 @@
 import { HttpMethods, instance } from '@/libs/axios'
-import { useEffect, useState } from '@/libs/vtu/valueToUI'
+import { useEffect, useState } from '@/libs/vtu'
 import { AxiosRequestConfig } from 'axios'
 
 export const useAPI = <T>(

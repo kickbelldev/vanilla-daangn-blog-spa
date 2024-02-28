@@ -1,38 +1,13 @@
-/* eslint-disable @typescript-eslint/no-explicit-any */
-
 import _ from 'lodash'
-
-export interface VirtualDOMNode {
-  tag: keyof HTMLElementTagNameMap
-  props?: Record<string, any>
-  children?: VirtualDOM[]
-}
-
-type TextNode = string | number | Array<any>
-export type VirtualDOM = VirtualDOMNode | TextNode
-
-export const checkIsTextNode = (element: VirtualDOM): element is TextNode => {
-  if (Array.isArray(element)) {
-    return true
-  }
-
-  if (typeof element === 'string' || typeof element === 'number') {
-    return true
-  }
-
-  if (!element.tag) {
-    return true
-  }
-
-  return false
-}
+import { checkIsTextNode } from './utils/checkIsTextNode'
+import { VirtualDOM } from './types'
 
 const createDOM = (node: VirtualDOM): HTMLElement | Text => {
   if (checkIsTextNode(node)) {
-    if (typeof node === 'object') {
+    if (typeof node === 'object' && node != null) {
       return document.createTextNode(JSON.stringify(node))
     }
-    return document.createTextNode(node.toString())
+    return document.createTextNode(node == null ? '' : node.toString())
   }
 
   const element = document.createElement(node.tag)
@@ -41,7 +16,7 @@ const createDOM = (node: VirtualDOM): HTMLElement | Text => {
     for (const key in node.props) {
       if (key.startsWith('data-')) {
         const dataKey = _.camelCase(key.slice(5))
-        element.dataset[dataKey] = node.props[key]
+        element.dataset[dataKey] = node.props[key] as string
       } else {
         ;(element as any)[key] = node.props[key]
       }
